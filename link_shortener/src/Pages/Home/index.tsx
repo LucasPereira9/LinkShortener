@@ -1,11 +1,16 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import {Text, StatusBar} from 'react-native';
+import theme from '../../Global/Styles/theme';
+import {Container, Content} from './styles';
 
 export const HomePage = () => {
   return (
-    <View>
-      <Text>LALALAL</Text>
-    </View>
+    <Container>
+      <StatusBar backgroundColor={theme.colors.primary} />
+      <Content>
+        <Text>LALALAL</Text>
+      </Content>
+    </Container>
   );
 };
 

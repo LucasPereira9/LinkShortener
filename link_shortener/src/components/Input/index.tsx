@@ -1,7 +1,8 @@
 import React from 'react';
-import {TextInput, Container, ErrorText} from './styles';
+import {TextInput, Container, ErrorView, ErrorText} from './styles';
 import IInput from './Input.Structure';
 import theme from '../../Global/Styles/theme';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Input = ({
   enable,
@@ -10,6 +11,7 @@ export const Input = ({
   setValue,
   error,
 }: IInput) => {
+  const myIcon = <Icon name="exclamation" size={18} color="#900" />;
   return (
     <Container>
       <TextInput
@@ -26,7 +28,11 @@ export const Input = ({
         keyboardType="text"
         autoCapitalize="none"
       />
-      {error ? <ErrorText>Link Inválido</ErrorText> : null}
+      {error ? (
+        <ErrorView>
+          <ErrorText> {myIcon} Link Inválido</ErrorText>
+        </ErrorView>
+      ) : null}
     </Container>
   );
 };

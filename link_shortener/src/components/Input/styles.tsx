@@ -14,3 +14,6 @@ export const ErrorText = styled.Text`
   font-size: 13px;
   color: ${theme.colors.error};
 `;
+export const ErrorView = styled.View`
+  margin: 4%;
+`;

@@ -9,7 +9,7 @@ export const Container = styled.View`
 `;
 export const Content = styled.View`
   width: 85%;
-  height: 45%;
+  height: 55%;
   background: ${theme.colors.secundary}
   align-items: center;
   border-radius: 20px;
@@ -22,7 +22,34 @@ export const Title = styled.Text`
 export const InputsContainer = styled.View`
   flex-direction: column;
   width: 80%;
-  height: 50%;
+  height: 40%;
   align-items: center;
   justify-content: space-around;
+`;
+export const ButtonContainer = styled.TouchableOpacity`
+  width: 40%;
+  align-items: center;
+  height: 12%;
+  border-radius: 6px;
+  background: ${theme.colors.primary};
+  margin: 10px;
+`;
+export const ConvText = styled.Text`
+  font-size: 20px;
+  text-align: center;
+  padding: 8%;
+  color: ${theme.colors.tertiary};
+`;
+export const ClipboardContainer = styled.TouchableOpacity`
+  width: 40%;
+  height: 12%;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+export const FormatedLink = styled.Text`
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  color: ${theme.colors.tertiary};
 `;

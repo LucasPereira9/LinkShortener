@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {Alert, StatusBar, Text} from 'react-native';
 import {StatusBar, Alert, ToastAndroid} from 'react-native';
 import theme from '../../Global/Styles/theme';
 import {
@@ -28,6 +27,7 @@ export const HomePage = () => {
         `https://cutt.ly/api/api.php?key=425b9d584a6d8607264ccf0b501a835a75417&short=${link}&name=${nickName}`,
       ).then(async response => {
         const data = await response.json();
+        setError(false);
         if (data.url.status === 3) {
           Alert.alert('nickName já em uso.');
         }
@@ -46,7 +46,7 @@ export const HomePage = () => {
     Clipboard.setString(newLink);
     showToast();
   };
-  
+
   return (
     <Container>
       <StatusBar backgroundColor={theme.colors.primary} />
@@ -65,7 +65,7 @@ export const HomePage = () => {
             placeHolderText="insira o nome que deseja"
           />
         </InputsContainer>
-        <ButtonContainer>
+        <ButtonContainer onPress={() => Short()}>
           <ConvText>Converter</ConvText>
         </ButtonContainer>
         <ClipboardContainer onPress={() => copyToClipboard()}>

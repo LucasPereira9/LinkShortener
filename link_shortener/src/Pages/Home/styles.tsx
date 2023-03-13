@@ -17,7 +17,7 @@ export const Content = styled.View`
 export const Title = styled.Text`
   font-size: 24px;
   padding: 8%;
-  color: ${theme.colors.tertiary};
+  color: ${theme.colors.primary};
 `;
 export const InputsContainer = styled.View`
   flex-direction: column;
@@ -38,18 +38,18 @@ export const ConvText = styled.Text`
   font-size: 20px;
   text-align: center;
   padding: 8%;
-  color: ${theme.colors.tertiary};
+  color: ${theme.colors.secundary};
 `;
 export const ClipboardContainer = styled.TouchableOpacity`
-  width: 40%;
+  min-width: 10%;
   height: 12%;
   align-items: center;
   flex-direction: row;
   justify-content: space-around;
 `;
 export const FormatedLink = styled.Text`
-  width: 100%;
   font-size: 12px;
+  padding: 4%;
   text-align: center;
-  color: ${theme.colors.tertiary};
+  color: ${theme.colors.primary};
 `;

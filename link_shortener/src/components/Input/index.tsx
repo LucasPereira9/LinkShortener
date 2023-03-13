@@ -17,13 +17,14 @@ export const Input = ({
       <TextInput
         editable={enable}
         style={{
+          color: '#fff',
           borderWidth: 1,
           borderColor: error ? theme.colors.error : '#000',
         }}
         placeholder={placeHolderText}
         value={value}
         onChangeText={(string: string) => setValue(string)}
-        placeholderTextColor="#464343"
+        placeholderTextColor="#a09f9fd6"
         returnKeyType={'next'}
         keyboardType="text"
         autoCapitalize="none"

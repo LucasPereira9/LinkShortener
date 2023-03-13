@@ -1,5 +1,12 @@
-import React, {useState} from 'react';
-import {StatusBar, Alert, ToastAndroid} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {
+  StatusBar,
+  Alert,
+  ToastAndroid,
+  View,
+  Text,
+  useWindowDimensions,
+} from 'react-native';
 import theme from '../../Global/Styles/theme';
 import {
   Container,
@@ -14,12 +21,21 @@ import {
 import Input from '../../components/Input';
 import Clipboard from '@react-native-community/clipboard';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {Modalize} from 'react-native-modalize';
 
 export const HomePage = () => {
   const [link, setLink] = useState<string>('');
   const [nickName, setNickname] = useState<string>('');
-  const [newLink, setNewLink] = useState<string>('..........');
+  const [newLink, setNewLink] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
+  const [linkLimit, setLinkLimit] = useState(false);
+  const window = useWindowDimensions();
+
+  const modalizeRef = useRef<Modalize>(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
 
   const Short = async () => {
     if (link.includes('https://') || link.includes('http://')) {
@@ -28,16 +44,24 @@ export const HomePage = () => {
       ).then(async response => {
         const data = await response.json();
         setError(false);
+        console.log('data:', data);
+
+        const MontlyLimit = data.includes('You have reached your limit');
+        setLinkLimit(MontlyLimit);
+
+        LimitValidation();
         if (data.url.status === 3) {
           Alert.alert('nickName já em uso.');
         }
-        console.log('data: ', data);
         setNewLink(data.url.shortLink);
       });
     } else {
       setError(true);
     }
   };
+  function LimitValidation() {
+    linkLimit ? onOpen() : null;
+  }
 
   const showToast = () => {
     ToastAndroid.show('Link copiado com sucesso!', ToastAndroid.SHORT);
@@ -51,7 +75,7 @@ export const HomePage = () => {
     <Container>
       <StatusBar backgroundColor={theme.colors.primary} />
       <Content>
-        <Title>Link Converter</Title>
+        <Title>Conversor de Links</Title>
         <InputsContainer>
           <Input
             placeHolderText={'insira o link'}
@@ -70,9 +94,14 @@ export const HomePage = () => {
         </ButtonContainer>
         <ClipboardContainer onPress={() => copyToClipboard()}>
           <FormatedLink>{newLink}</FormatedLink>
-          <Icon name="copy" size={22} />
+          <Icon color={'#fff'} name="copy" size={22} />
         </ClipboardContainer>
       </Content>
+      <Modalize modalHeight={window.height / 2} ref={modalizeRef}>
+        <View>
+          <Text>LLALA</Text>
+        </View>
+      </Modalize>
     </Container>
   );
 };

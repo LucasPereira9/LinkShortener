@@ -6,6 +6,7 @@ import {
   View,
   Text,
   useWindowDimensions,
+  Keyboard,
 } from 'react-native';
 import theme from '../../Global/Styles/theme';
 import {
@@ -21,6 +22,7 @@ import {
 import Input from '../../components/Input';
 import Clipboard from '@react-native-community/clipboard';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {Modal} from '../../components/modal';
 import {Modalize} from 'react-native-modalize';
 
 export const HomePage = () => {
@@ -38,6 +40,7 @@ export const HomePage = () => {
   };
 
   const Short = async () => {
+    Keyboard.dismiss();
     if (link.includes('https://') || link.includes('http://')) {
       await fetch(
         `https://cutt.ly/api/api.php?key=425b9d584a6d8607264ccf0b501a835a75417&short=${link}&name=${nickName}`,
@@ -97,11 +100,7 @@ export const HomePage = () => {
           <Icon color={'#fff'} name="copy" size={22} />
         </ClipboardContainer>
       </Content>
-      <Modalize modalHeight={window.height / 2} ref={modalizeRef}>
-        <View>
-          <Text>LLALA</Text>
-        </View>
-      </Modalize>
+      <Modal windowH={window.height / 2} opened={linkLimit} />
     </Container>
   );
 };

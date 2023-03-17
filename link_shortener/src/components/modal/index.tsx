@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {Modalize} from 'react-native-modalize';
+import ModernButton from '../button';
 import {IModal} from './modal.Structure';
 import {Container, Title, Description} from './style';
 
@@ -21,6 +22,7 @@ export const Modal = ({windowH, opened}: IModal) => {
         <Description>
           LALBLLBLALBLBLBALBLBALBALBLALBLLBLALBLBLBALBLBALBALBLBLBALBALALALBLLBLALBLBLBALBLBALBALBLBLBALBALALALBLLBLALBLBLBALBLBALBALBLBLBALBALALALBLLBLALBLBLBALBLBALBALBLBLBALBALALALBLLBLALBLBLBALBLBALBALBLBLBALBALALBLBALBALA
         </Description>
+        <ModernButton Press={() => myRef.current?.close()} Title="Entendido" />
       </Container>
     </Modalize>
   );

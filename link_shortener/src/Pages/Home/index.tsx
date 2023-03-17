@@ -24,6 +24,7 @@ import Clipboard from '@react-native-community/clipboard';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Modal} from '../../components/modal';
 import {Modalize} from 'react-native-modalize';
+import ModernButton from '../../components/button';
 
 export const HomePage = () => {
   const [link, setLink] = useState<string>('');
@@ -92,15 +93,13 @@ export const HomePage = () => {
             placeHolderText="insira o nome que deseja"
           />
         </InputsContainer>
-        <ButtonContainer onPress={() => Short()}>
-          <ConvText>Converter</ConvText>
-        </ButtonContainer>
+        <ModernButton colored={true} Press={() => Short()} Title="Converter" />
         <ClipboardContainer onPress={() => copyToClipboard()}>
           <FormatedLink>{newLink}</FormatedLink>
           <Icon color={'#fff'} name="copy" size={22} />
         </ClipboardContainer>
       </Content>
-      <Modal windowH={window.height / 2} opened={linkLimit} />
+      <Modal windowH={window.height / 2.4} opened={linkLimit} />
     </Container>
   );
 };

@@ -12,6 +12,7 @@ export const Content = styled.View`
   height: 55%;
   background: ${theme.colors.secundary}
   align-items: center;
+  justify-content: center;
   border-radius: 20px;
 `;
 export const Title = styled.Text`
@@ -22,17 +23,15 @@ export const Title = styled.Text`
 export const InputsContainer = styled.View`
   flex-direction: column;
   width: 80%;
-  height: 40%;
+  height: 30%;
   align-items: center;
   justify-content: space-around;
 `;
 export const ButtonContainer = styled.TouchableOpacity`
-  width: 40%;
+  width: 80%;
+  flex-direction: row;
   align-items: center;
-  height: 12%;
-  border-radius: 6px;
-  background: ${theme.colors.primary};
-  margin: 10px;
+  justify-content: center;
 `;
 export const ConvText = styled.Text`
   font-size: 20px;

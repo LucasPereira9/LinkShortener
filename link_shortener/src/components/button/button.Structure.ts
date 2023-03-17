@@ -1,5 +1,6 @@
 export interface IButton {
   Press: () => void;
   Title: string;
-  colored?: boolean;
+  Colored?: boolean;
+  Loading?: boolean;
 }

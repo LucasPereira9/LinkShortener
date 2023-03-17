@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  width: 50%;
+  width: 52%;
   align-items: center;
-  height: 13%;
+  height: 28%;
   align-content: center;
   margin: 10px;
 `;

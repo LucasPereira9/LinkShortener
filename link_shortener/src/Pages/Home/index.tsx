@@ -14,9 +14,12 @@ import Input from '../../components/Input';
 import ModernButton from '../../components/button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Clipboard from '@react-native-community/clipboard';
+import SaveHistory from '../../services/history';
+import {useNavigation} from '@react-navigation/native';
 
 export const HomePage = () => {
   const [link, setLink] = useState<string>('');
+  const navigation = useNavigation();
 
   const [newLink, setNewLink] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
@@ -28,7 +31,7 @@ export const HomePage = () => {
     setLoading(false);
   }
 
-  const getDataUsingGet = () => {
+  const GetData = () => {
     setLoading(true);
     setError(false);
     Keyboard.dismiss();
@@ -79,19 +82,20 @@ export const HomePage = () => {
           <ModernButton
             Loading={loading}
             Colored={true}
-            Press={() => getDataUsingGet()}
+            Press={() => SaveHistory()}
             Title="Converter"
           />
           <ModernButton
             Colored={true}
-            Press={() => HandleShare()}
+            // Press={() => HandleShare()}
+            Press={() => navigation.navigate('HistoryPage')}
             Title="Compartilhar"
           />
         </ButtonContainer>
 
         <ClipboardContainer onPress={() => copyToClipboard()}>
           <FormatedLink>{newLink}</FormatedLink>
-          <Icon color={'#fff'} name="copy" size={22} />
+          <Icon color={theme.colors.primary} name="copy" size={22} />
         </ClipboardContainer>
       </Content>
     </Container>

@@ -17,9 +17,9 @@ export const Input = ({
       <TextInput
         editable={enable}
         style={{
-          color: '#fff',
+          color: theme.colors.primary,
           borderWidth: 1,
-          borderColor: error ? theme.colors.error : '#000',
+          borderColor: error ? theme.colors.error : theme.colors.secundary,
         }}
         placeholder={placeHolderText}
         value={value}

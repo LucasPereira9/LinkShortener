@@ -1,29 +1,42 @@
 import React, {useState} from 'react';
-import {StatusBar, Share, ToastAndroid, Keyboard} from 'react-native';
-import theme from '../../Global/Styles/theme';
 import {
-  Container,
-  Content,
-  Title,
-  InputsContainer,
-  ClipboardContainer,
-  FormatedLink,
-  ButtonContainer,
-} from './styles';
+  StatusBar,
+  Share,
+  ToastAndroid,
+  Keyboard,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import theme from '../../Global/Styles/theme';
+import {styles} from './styles';
 import Input from '../../components/Input';
 import ModernButton from '../../components/button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Clipboard from '@react-native-community/clipboard';
 import SaveHistory from '../../services/history';
 import {useNavigation} from '@react-navigation/native';
+import {Controller, SubmitHandler, useForm, FieldValues} from 'react-hook-form';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 export const HomePage = () => {
-  const [link, setLink] = useState<string>('');
   const navigation = useNavigation();
 
   const [newLink, setNewLink] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const {
+    control,
+    handleSubmit,
+    formState: {isValid},
+    watch,
+  } = useForm({mode: 'onChange'});
+  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
+    console.log(data);
+    GetData();
+  };
+  let Link = watch('link');
+  const isConvertedValid = newLink?.length > 1;
 
   function HandleErrors() {
     setError(true);
@@ -34,8 +47,9 @@ export const HomePage = () => {
   const GetData = () => {
     setLoading(true);
     setError(false);
+    setNewLink('');
     Keyboard.dismiss();
-    fetch(`https://tinyurl.com/api-create.php?url=${link}`, {
+    fetch(`https://tinyurl.com/api-create.php?url=${Link}`, {
       method: 'GET',
     })
       .then(response => response.text())
@@ -44,8 +58,9 @@ export const HomePage = () => {
           HandleErrors();
           return;
         }
-        if (link.includes('https://')) {
+        if (Link.includes('https://')) {
           setLoading(false);
+          console.log(isConvertedValid);
           setNewLink(responseJson);
         } else {
           HandleErrors();
@@ -66,39 +81,73 @@ export const HomePage = () => {
   };
 
   return (
-    <Container>
-      <StatusBar backgroundColor={theme.colors.primary} />
-      <Content>
-        <Title>Conversor de Links</Title>
-        <InputsContainer>
-          <Input
-            placeHolderText={'insira o link'}
-            value={link}
-            setValue={setLink}
-            error={error}
-          />
-        </InputsContainer>
-        <ButtonContainer>
-          <ModernButton
-            Loading={loading}
-            Colored={true}
-            Press={() => SaveHistory()}
-            Title="Converter"
-          />
-          <ModernButton
-            Colored={true}
-            // Press={() => HandleShare()}
-            Press={() => navigation.navigate('HistoryPage')}
-            Title="Compartilhar"
-          />
-        </ButtonContainer>
+    <View style={styles.Container}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <StatusBar backgroundColor={theme.colors.primary} />
+        <View>
+          <View style={styles.inputsContent}>
+            <Controller
+              control={control}
+              rules={{required: true}}
+              render={({field: {onChange, value}}) => (
+                <Input
+                  placeHolderText={'insira o link a ser convertido'}
+                  value={value}
+                  setValue={onChange}
+                  error={error}
+                />
+              )}
+              name="link"
+            />
 
-        <ClipboardContainer onPress={() => copyToClipboard()}>
-          <FormatedLink>{newLink}</FormatedLink>
-          <Icon color={theme.colors.primary} name="copy" size={22} />
-        </ClipboardContainer>
-      </Content>
-    </Container>
+            <Controller
+              control={control}
+              rules={{required: true}}
+              render={({field: {onChange, value}}) => (
+                <Input
+                  placeHolderText={'apelido do link'}
+                  value={value}
+                  setValue={onChange}
+                />
+              )}
+              name="linkNickname"
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <ModernButton
+              Loading={loading}
+              Colored={isValid}
+              Press={handleSubmit(onSubmit)}
+              Title="Converter"
+            />
+          </View>
+
+          <View style={styles.bottomContent}>
+            <Input
+              enable={false}
+              placeHolderText={'link convertido'}
+              value={newLink}
+              setValue={setNewLink}
+              icon="copy"
+              iconPressed={() => console.log('pressed')}
+            />
+
+            <TouchableOpacity
+              disabled={!isConvertedValid}
+              style={[
+                styles.shareIcon,
+                {
+                  backgroundColor: isConvertedValid
+                    ? theme.colors.primary
+                    : theme.colors.gray,
+                },
+              ]}>
+              <Icon color={theme.colors.white} name="share" size={40} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };
 

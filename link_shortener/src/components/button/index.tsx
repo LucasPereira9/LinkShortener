@@ -13,18 +13,17 @@ export const ModernButton = ({
   return (
     <Container>
       <ButtonContainer
+        disabled={Colored ? false : true}
         style={{
-          backgroundColor: Colored
-            ? theme.colors.primary
-            : theme.colors.secundary,
+          backgroundColor: Colored ? theme.colors.primary : theme.colors.gray,
         }}
         onPress={Press}>
         {Loading ? (
-          <ActivityIndicator color={theme.colors.secundary} />
+          <ActivityIndicator color={theme.colors.white} />
         ) : (
           <ConvText
             style={{
-              color: Colored ? theme.colors.secundary : theme.colors.primary,
+              color: Colored ? theme.colors.white : theme.colors.white,
             }}>
             {Title}
           </ConvText>

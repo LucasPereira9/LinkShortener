@@ -4,4 +4,6 @@ export default interface IInput {
   value: string;
   setValue: (string: string) => void;
   error?: boolean;
+  icon?: string;
+  iconPressed?: () => void;
 };

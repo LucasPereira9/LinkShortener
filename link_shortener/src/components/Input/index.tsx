@@ -19,6 +19,7 @@ export const Input = ({
   error,
   icon,
   iconPressed,
+  enableIcon,
 }: IInput) => {
   const myIcon = <Icon name="exclamation" size={18} color="#900" />;
   return (
@@ -40,7 +41,7 @@ export const Input = ({
           autoCapitalize="none"
         />
         {icon && (
-          <IconView onPress={iconPressed}>
+          <IconView disabled={enableIcon} onPress={iconPressed}>
             <Icon color={theme.colors.primary} name={icon} size={30} />
           </IconView>
         )}

@@ -1,17 +1,17 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import {ISavedItems} from './history.structure';
 
-export default async function SaveHistory() {
+export default async function SaveHistory(props: ISavedItems) {
   const response = await AsyncStorage.getItem('@LinkShortener:History');
 
   const teste = {
-    name: 'lucas',
-    idade: '11',
-    city: 'ww',
+    newLink: props.newLink,
+    Nickname: props.nickname,
   };
 
   const PreviousData = response ? JSON.parse(response) : [];
   const data = [...PreviousData, teste];
   await AsyncStorage.setItem('@LinkShortener:History', JSON.stringify(data));
-  console.log('data: ', data);
+
   return data;
 }

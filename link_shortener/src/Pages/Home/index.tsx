@@ -13,30 +13,28 @@ import Input from '../../components/Input';
 import ModernButton from '../../components/button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Clipboard from '@react-native-community/clipboard';
-import SaveHistory from '../../services/history';
-import {useNavigation} from '@react-navigation/native';
+import SaveHistory from '../../services/historySave/history';
 import {Controller, SubmitHandler, useForm, FieldValues} from 'react-hook-form';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 export const HomePage = () => {
-  const navigation = useNavigation();
-
   const [newLink, setNewLink] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-
   const {
     control,
     handleSubmit,
     formState: {isValid},
     watch,
   } = useForm({mode: 'onChange'});
-  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
-    console.log(data);
+
+  let Link = watch('link');
+  const nickname = watch('linkNickname');
+  const isConvertedLinkValid = newLink.length > 1;
+
+  const onSubmit: SubmitHandler<FieldValues> = () => {
     GetData();
   };
-  let Link = watch('link');
-  const isConvertedValid = newLink?.length > 1;
 
   function HandleErrors() {
     setError(true);
@@ -60,7 +58,10 @@ export const HomePage = () => {
         }
         if (Link.includes('https://')) {
           setLoading(false);
-          console.log(isConvertedValid);
+          SaveHistory({
+            newLink: responseJson,
+            nickname: nickname,
+          });
           setNewLink(responseJson);
         } else {
           HandleErrors();
@@ -129,15 +130,17 @@ export const HomePage = () => {
               value={newLink}
               setValue={setNewLink}
               icon="copy"
-              iconPressed={() => console.log('pressed')}
+              iconPressed={() => copyToClipboard()}
+              enableIcon={!isConvertedLinkValid}
             />
 
             <TouchableOpacity
-              disabled={!isConvertedValid}
+              onPress={() => HandleShare()}
+              disabled={!isConvertedLinkValid}
               style={[
                 styles.shareIcon,
                 {
-                  backgroundColor: isConvertedValid
+                  backgroundColor: isConvertedLinkValid
                     ? theme.colors.primary
                     : theme.colors.gray,
                 },

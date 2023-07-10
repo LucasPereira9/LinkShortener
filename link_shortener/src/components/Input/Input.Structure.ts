@@ -6,4 +6,5 @@ export default interface IInput {
   error?: boolean;
   icon?: string;
   iconPressed?: () => void;
-};
+  enableIcon?: boolean;
+}

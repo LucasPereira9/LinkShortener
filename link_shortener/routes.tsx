@@ -23,7 +23,7 @@ const Routes = () => {
               headerStyle: {
                 backgroundColor: theme.colors.primary,
               },
-              headerTintColor: '#fff',
+              headerTintColor: theme.colors.white,
               headerTitleStyle: {
                 fontSize: 22,
                 fontWeight: 'bold',
@@ -38,7 +38,7 @@ const Routes = () => {
               headerStyle: {
                 backgroundColor: theme.colors.primary,
               },
-              headerTintColor: '#fff',
+              headerTintColor: theme.colors.white,
               headerTitleStyle: {
                 fontSize: 22,
                 fontWeight: 'bold',

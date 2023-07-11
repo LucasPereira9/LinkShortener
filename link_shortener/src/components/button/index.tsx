@@ -2,23 +2,32 @@ import React from 'react';
 import {IButton} from './button.Structure';
 import {ButtonContainer, Container, ConvText} from './style';
 import theme from '../../Global/Styles/theme';
+import {ActivityIndicator} from 'react-native';
 
-export const ModernButton = ({Press, Title, colored = false}: IButton) => {
+export const ModernButton = ({
+  Press,
+  Title,
+  Loading,
+  Colored = true,
+}: IButton) => {
   return (
     <Container>
       <ButtonContainer
+        disabled={Colored ? false : true}
         style={{
-          backgroundColor: colored
-            ? theme.colors.primary
-            : theme.colors.secundary,
+          backgroundColor: Colored ? theme.colors.primary : theme.colors.gray,
         }}
         onPress={Press}>
-        <ConvText
-          style={{
-            color: colored ? theme.colors.secundary : theme.colors.primary,
-          }}>
-          {Title}
-        </ConvText>
+        {Loading ? (
+          <ActivityIndicator color={theme.colors.white} />
+        ) : (
+          <ConvText
+            style={{
+              color: Colored ? theme.colors.white : theme.colors.white,
+            }}>
+            {Title}
+          </ConvText>
+        )}
       </ButtonContainer>
     </Container>
   );

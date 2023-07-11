@@ -5,9 +5,11 @@ import {Text, View, Linking, ScrollView, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import theme from '../../Global/Styles/theme';
+import {Modal} from '../../components/modal';
 
 export default function HistoryPage() {
   const [Items, setItems] = React.useState([]);
+  const [modal, setModal] = React.useState<boolean>(false);
 
   const date = new Date();
   const currentDate = date.toLocaleDateString();
@@ -80,13 +82,31 @@ export default function HistoryPage() {
   }, [Items, currentDate]);
 
   return (
-    <ScrollView style={styles.Container}>
-      {Items.length > 0 && (
-        <TouchableOpacity activeOpacity={0.4} style={styles.trashContainer}>
-          <Icon color={theme.colors.primary} name="trash" size={30} />
-        </TouchableOpacity>
-      )}
-      {ShowTransactions}
-    </ScrollView>
+    <>
+      <ScrollView style={styles.Container}>
+        {Items.length > 0 && (
+          <TouchableOpacity
+            onPress={() => setModal(true)}
+            activeOpacity={0.4}
+            style={styles.trashContainer}>
+            <Icon color={theme.colors.primary} name="trash" size={30} />
+          </TouchableOpacity>
+        )}
+        {ShowTransactions}
+      </ScrollView>
+      <Modal
+        title="Limpar Histórico"
+        subtitle="Você está prestes a limpar todo seu histórico de links. e esta ação não pode ser desfeita."
+        setOpen={() => setModal(false)}
+        buttonTitle="Limpar"
+        buttonFunction={() => {
+          setModal(false);
+          AsyncStorage.removeItem('@LinkShortener:History');
+          setItems([]);
+        }}
+        opened={modal}
+        secondButton={true}
+      />
+    </>
   );
 }

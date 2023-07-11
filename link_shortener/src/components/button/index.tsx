@@ -8,7 +8,7 @@ export const ModernButton = ({
   Press,
   Title,
   Loading,
-  Colored = false,
+  Colored = true,
 }: IButton) => {
   return (
     <Container>

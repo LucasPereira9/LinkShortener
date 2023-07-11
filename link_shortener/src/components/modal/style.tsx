@@ -1,18 +1,32 @@
-import styled from 'styled-components/native';
+import {StyleSheet} from 'react-native';
 import theme from '../../Global/Styles/theme';
 
-export const Container = styled.View`
-  flex: 1;
-  background: ${theme.colors.primary}
-  align-items: center;
-  justify-content: center;
-`;
-export const Title = styled.Text`
-  padding: 5%;
-  font-size: 24px;
-  font-weight: bold;
-`;
-export const Description = styled.Text`
-  padding: 5%;
-  text-align: center;
-`;
+export const styles = StyleSheet.create({
+  Container: {
+    margin: 10,
+    flex: 1,
+    backgroundColor: theme.colors.white,
+  },
+  Content: {
+    marginVertical: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 100,
+  },
+  title: {
+    fontSize: 20,
+    color: theme.colors.black,
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    fontSize: 16,
+    fontWeight: '300',
+    color: theme.colors.black,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    height: 100,
+    width: '85%',
+  },
+});

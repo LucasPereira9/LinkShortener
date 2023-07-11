@@ -13,7 +13,7 @@ import Input from '../../components/Input';
 import ModernButton from '../../components/button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Clipboard from '@react-native-community/clipboard';
-import SaveHistory from '../../services/historySave/history';
+import SaveHistory from '../../services/historySave/saveHistory';
 import {Controller, SubmitHandler, useForm, FieldValues} from 'react-hook-form';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
@@ -27,6 +27,8 @@ export const HomePage = () => {
     formState: {isValid},
     watch,
   } = useForm({mode: 'onChange'});
+  const date = new Date();
+  const formatedDate = date.toLocaleDateString();
 
   let Link = watch('link');
   const nickname = watch('linkNickname');
@@ -61,6 +63,7 @@ export const HomePage = () => {
           SaveHistory({
             newLink: responseJson,
             nickname: nickname,
+            date: formatedDate,
           });
           setNewLink(responseJson);
         } else {

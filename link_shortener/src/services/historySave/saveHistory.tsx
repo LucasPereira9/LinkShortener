@@ -7,6 +7,7 @@ export default async function SaveHistory(props: ISavedItems) {
   const teste = {
     newLink: props.newLink,
     Nickname: props.nickname,
+    date: props.date,
   };
 
   const PreviousData = response ? JSON.parse(response) : [];

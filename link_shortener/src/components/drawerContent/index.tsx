@@ -17,7 +17,7 @@ export default function CustomDrawerContent(props: any) {
       </View>
       <Content>
         <DrawerContent>
-          <Icon color={theme.colors.secundary} name="circle" size={8} />
+          <Icon color={theme.colors.black} name="circle" size={8} />
 
           <DrawerItem
             style={{
@@ -31,7 +31,7 @@ export default function CustomDrawerContent(props: any) {
           />
         </DrawerContent>
         <DrawerContent>
-          <Icon color={theme.colors.secundary} name="circle" size={8} />
+          <Icon color={theme.colors.black} name="circle" size={8} />
           <DrawerItem
             style={{
               width: width,
